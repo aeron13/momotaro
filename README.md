@@ -1,2 +1,2 @@
 # momotaro
-University project on fairytails
+University project on fairytales
