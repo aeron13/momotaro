@@ -1,0 +1,820 @@
+body {
+overflow: hidden;
+background-image: url("./images/pattern10.jpg");
+ }
+
+@font-face {
+    font-family: yozakura;
+    src: url(./fonts/YOZAKURA-Regular.otf);
+}
+
+@font-face {
+    font-family: nanami-bold;
+    src: url(./fonts/Nanami-Book.otf);
+}
+
+@font-face {
+    font-family: nanami;
+    src: url(./fonts/Nanami-Light.otf);
+}
+
+#wrapper {
+  position: absolute;
+  background-image: url("./images/parchment2.jpg");
+  width: 1000px;
+  height: 700px;
+  top: 50%;
+  left: 50%;
+transform: translate(-50%, -50%)
+}
+
+#wrapper.cover {
+    background-image: url("./render/copertina_lucciole_1.png");
+}
+
+.legniA {
+width: 1000px;
+height: 14px;
+display: none;
+}
+.legniB {
+width: 14px;
+height: 630px;
+display: none;
+}
+
+/*orizzontale in alto*/
+#legno1 {
+background-image: url("./images/legnoH.png");
+position: absolute;
+top: 70px;
+left: 0px;
+z-index: 1;
+transition: 1s;
+display: none;
+}
+
+#legno1.sposta1 {position: absolute; width: 1000px; top: 11px; left: 0px; transition: 1s}
+#legno1.spostaT1 {position: absolute; width: 790px; top: 100px; left: 100px; transition: 1s}
+
+/*orizzontale in basso*/
+#legno2 {
+background-image: url("./images/legnoH.png");
+position: absolute;
+top: 623px;
+left: 0px;
+z-index: 1;
+transition: 1s;
+display: none;
+}
+
+#legno2.sposta2 {position: absolute; width: 1000px; top: 675px; left: 0px; transition: 1s}
+#legno2.spostaT2 {position: absolute; width: 790px; top: 500px; left: 100px; transition: 1s}
+
+/*verticale a destra*/
+#legno3 {
+  background-image: url("./images/legnoV.png");
+position: absolute;
+top: 37.5px;
+left: 970px;
+transition: 1s;
+display: none;
+}
+
+#legno3.sposta3 {position: absolute; height: 700px; top: 0%; left: 975px; transition: 1s}
+#legno3.spostaT3 {position: absolute; height: 400px; top: 100px; left: 800px; transition: 1s}
+
+/*verticale a sinistra*/
+#legno4 {
+  background-image: url("./images/legnoV.png");
+position: absolute;
+top: 37.5px;
+left: 230px ;
+z-index: 1;
+transition: 1s;
+display: none;
+}
+
+#legno4.sposta4 {position: absolute; height: 700px; top: 0px; left: 12px; transition: 1s}
+#legno4.spostaT4 {position: absolute; height: 400px; top: 100px; left: 100px; transition: 1s}
+
+.testo {
+  text-align: center;
+  font-size: 2em;
+  cursor: default;
+}
+
+#titolo {
+  font-size: 55px;
+  margin-top: 0.3%;
+  font-weight: bolder;
+  margin-left: 60.5%;
+  transform: translate(-50%,0);
+  transition: 1s;
+  font-family: yozakura;
+  color: #b92c00;
+  width: 728px;
+}
+
+#titolo.credits {
+
+  margin-left: 50%;
+    margin-top: 10%;
+  font-size: 55px;
+position: absolute;
+  font-weight: bolder;
+
+  transform: translate(-50%,0);
+  transition: 1s;
+  font-family: yozakura;
+  color: #b92c00;
+  width: 728px;
+}
+
+#contenuto.credits {
+  position: absolute;
+  column-count: 2;
+  margin-left: 30%;
+  text-align: left;
+  width: 50%;
+  transition: 0s;
+  margin-top: 20%;
+  font-size: 1.2em;
+  font-family: nanami;
+  height: 400px;
+
+
+}
+
+#titolo.cover {
+    font-size: 100px;
+    top: 16%;
+      margin-left: 49%;
+      color: #ffbac4;
+      position: absolute;
+      cursor: pointer;
+}
+#titolo.sposta {
+  margin-top: 20%;
+  margin-left: 50%;
+  transition: 1s;
+}
+#titolo.light {
+
+text-shadow: 0px 0px 20px #b92c00
+}
+
+#contenuto{
+  margin-top: 4%;
+  margin-left: 1.5%;
+  font-size: 1.2em;
+  font-family: nanami;
+  width: 20%;
+  text-align: right;
+  transition: 0s;
+
+}
+
+#testoCopertinaS {
+  color: #6d8fae;
+  font-size: 1em;
+  margin-top: 4%;
+  margin-left: 3%;
+  font-family: nanami;
+  width: 35%;
+  text-align: left;
+  transition: 0s;
+  position: absolute;
+  cursor: default;
+}
+
+#testoCopertinaD {
+  color: #6d8fae;
+  font-size: 1em;
+  margin-top: 4%;
+  margin-left: 62%;
+  font-family: nanami;
+  width: 35%;
+  text-align: right;
+  transition: 0s;
+  position: absolute;
+}
+
+#testoCopertinaAutori {
+  color: #ffbac4;
+  font-size: 1em;
+  font-weight: bold;
+  bottom: 10px;
+  right: 30;
+  font-family: nanami;
+  width: 35%;
+  text-align: right;
+  transition: 0s;
+  position: absolute;
+}
+
+#contenuto.sposta {
+  margin-top: 5%;
+  margin-left: 25%;
+  text-align: left;
+  width: 50%;
+  transition: 0s;
+}
+
+.bottone {
+  position: absolute;
+  bottom: 5%;
+  width: auto;
+  height: auto;
+  color: #b92c00;
+  border-radius: 0%;
+  font-family: nanami;
+  font-size: 1.5em;
+  cursor: pointer;
+  transform-origin: center;
+}
+.bottone.illumina {
+  border: 5px solid #b92c00;
+  border-radius: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  /*font-family: nanami-bold;*/
+  font-size:1.6em;
+  transform-origin: center;
+  color: black;
+  /*background-color: #99c3ff;*/
+}
+
+#left {
+  left: 40%;
+  text-align: center;
+  transform: translate(-50%,50%);
+  transform-origin: center;
+}
+
+#right {
+  left: 90%;
+  text-align: center;
+  transform: translate(-50%,50%);
+  transform-origin: bottom;
+}
+
+#centr.sposta {
+  bottom: 36%;
+  left: 9%;
+  transform: translate(-50%,50%);
+  transform-origin: center;
+}
+
+#centr {
+  margin-left: 60.5%;
+  transform: translate(-50%,50%);
+transform-origin: center;
+}
+#centr.cover {
+  color: white;
+  margin-top: 20%;
+  margin-left: 49%;
+  font-size: 2em;
+  transform: translate(-50%,50%);
+transform-origin: center;
+}
+
+#centr.illuminaC {
+  color: white;
+  margin-top: 20%;
+  margin-left: 49%;
+  font-size: 2.2em;
+  transform: translate(-50%,50%);
+transform-origin: center;
+}
+
+.game {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  filter: blur(5px);
+}
+/*#giocoOni {
+  pointer-events: none;
+}
+#giocoOni.mouseVa {
+  pointer-events: all;
+}*/
+/*controllo del mouse per i giochi*/
+#giocoDolci {
+  cursor: default;
+  filter: blur(5px);
+}
+#gioco1.mouse {
+  cursor: none;
+}
+#giocoOni.mouse {
+  cursor: none;
+}
+/*fa apparire i giochi*/
+#giocoDolci.appare {
+  filter: blur(0px);
+  transition: 0.5s;
+    }
+#gioco1.appare {
+      filter: blur(0px);
+      transition: 0.5s;
+        }
+#giocoOni.appare {
+      filter: blur(0px);
+      transition: 0.5s;
+        }
+
+
+#mappaButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-image: url("./images/piediRisorsa 6.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 45px;
+  height: 40px;
+  position: absolute;
+  left: 100%;
+  bottom: 0;
+  border-radius: 0%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+}
+#home {
+  top: 50%;
+  left: 50%;
+  background-image: url("./images/Risorsa 2.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 42px;
+  height: 40px;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  /*border-radius: 50%;*/
+}
+#home.cover {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: default;
+}
+#pulsanti.giocoVa {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: default;
+  left: 170px;
+  bottom: 25px;
+  width: 80px;
+  height: 40px;
+}
+#autori {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  left: 100%;
+  bottom: 0;
+  background-image: url("./images/manoRisorsa 13.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 42px;
+  height: 40px;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+    transition: 0s;
+  /*border-radius: 50%;*/
+}
+#credits {
+  top: 60%;
+  left: 50%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 42px;
+  height: 40px;
+  background-image: url("./images/Risorsa 17.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 0%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+    transition: 0s;
+}
+
+
+#pulsanti {
+  position: absolute;
+  left: 215px;
+  bottom: 10px;
+  width: 80px;
+  height: 40px;
+  transform: translate(-150%, 0);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  /*transition: 1s;*/
+
+}
+
+#pulsantiCopertina {
+  position: absolute;
+  left: 370px;
+  bottom: 10px;
+  width: 80px;
+  height: 40px;
+  transform: translate(-150%, 0);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+    /*transition: 1s;*/
+}
+
+#pulsanti.gioco {
+  left: 170px;
+  bottom: 25px;
+  width: 80px;
+  height: 40px;
+  transition: 1s;
+}
+
+#pulsanti.cover {
+  left: 160px;
+  bottom: 10px;
+  width: 80px;
+  height: 40px;
+    /*transition: 1s;*/
+}
+
+#pulsanti.autori {
+  position: absolute;
+  left: 215px;
+  bottom: 40px;
+  width: 80px;
+  height: 40px;
+  transform: translate(-150%, 0);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  /*transition: 1s;*/
+
+}
+
+
+#pulsantiCopertina.cover {
+  left: 315px;
+  bottom: 10px;
+  }
+
+.pulsanti.illumina {
+  width: 100%; height: 100%;
+  /*-webkit-filter: drop-shadow(0px 0px 0px #3b89ff);*/
+  filter: drop-shadow(0px 0px 10px #b92c00);
+}
+
+#mappa {
+  background-image: url("./images/mappa_Momotaro_titoli.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 652px;
+  width: 952px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+#mappa.autori {
+  background-image: url("./images/pagina autori.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 652px;
+  width: 952px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+#titolo.autori {
+
+  margin-left: 50%;
+    margin-top: 3%;
+  font-size: 55px;
+position: absolute;
+  font-weight: bolder;
+
+  transform: translate(-50%,0);
+  transition: 1s;
+  font-family: yozakura;
+  color: #b92c00;
+  width: 728px;
+}
+
+
+#pesca {
+  height: 250px;
+  width: 250px;
+  z-index: 1;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transform-origin: center;
+}
+#pesca.start {
+  background-image: url("./images/Risorsa 3.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.dead {
+  background-image: url("./images/pesca-morta.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.won {
+  background-image: url("./images/pesca-nonna.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.startnonno {
+  background-image: url("./images/nonnoStart.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.deadnonno {
+  background-image: url("./images/nonnoDead.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.wonnonno {
+  background-image: url("./images/nonnoWon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.startmomo {
+  background-image: url("./images/momostart.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.deadmomo {
+  background-image: url("./images/momodead.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+#pesca.wonmomo {
+  background-image: url("./images/momoRisorsa 8.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: pulsa 0.5s infinite alternate;
+}
+@keyframes pulsa {
+  from {width: 220px; height: 220px}
+  to {width: 200px; height: 200px}
+}
+
+@keyframes opacitàPulsanti {
+  0% {opacity: 0;}
+  50% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+#mappabuttons {
+  width: 952px;
+  height: 640px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 1;
+}
+
+#buttons.cover {
+  position: absolute;
+  top: 30%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+transform-origin: center;
+}
+
+.mappaClass {
+  cursor: pointer;
+  width: 50px;
+  height: 30px;
+  position: absolute;
+  transform: translate(-50, -50);
+  transform-origin: center;
+  }
+.mappaClass.light {
+border: 5px solid #b92c00;
+border-radius: 5px;
+filter: blur(5px);
+transform-origin: center;
+}
+
+#homeMappa {
+  cursor: pointer;
+  position: absolute;
+  transform: translate(-50, -50);
+  transform-origin: center;
+  background-image: url("./images/homemappa.png");
+  height: 34px;
+  width: 40px;
+  background-repeat: no-repeat;
+  left: 17px;
+  top: 25px;
+}
+#homeMappa.light {
+  filter: drop-shadow(0px 0px 10px #b92c00);
+}
+#immagine {
+  width: 728px;
+  height: 540px;
+  position: absolute;
+  top: 84px;
+  left: 244px;
+  pointer-events: none;
+}
+
+#layer2 {
+position: absolute;
+transform: translate(-50%, -50%);
+}
+#layer3 {
+position: absolute;
+transform: translate(-50%, -50%);
+pointer-events: none;
+}
+
+#layer1 {
+  width: -50%;
+  height: -50%;
+  position: absolute;
+  /*lasciare il transform: translate nell'id anche se si ripete,
+  altrimenti succedono casini!*/
+  transform: translate(-50%, -50%);
+  }
+
+
+.layer.illumina {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  -webkit-filter: drop-shadow(0px 0px 0px #ffe957);
+  filter: drop-shadow(0px 0px 6px #ffe957);
+  transition: filter 1s;
+}
+
+.layer.illumina2 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -webkit-filter: drop-shadow(0px 0px 0px #ffe117);
+    filter: drop-shadow(0px 0px 10px #ffe117);
+    transition: 0s;
+  }
+
+.layer {
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.grassetto {
+font-family: nanami-bold;
+}
+.clickL.light {text-shadow: 0px 0px 5px #b92c00}
+.clickR.light {text-shadow: 0px 0px 5px #b92c00}
+.clickR {
+  color: #b92c00;
+  cursor: pointer;
+  pointer-events: all;
+}
+.clickL {
+  color: #b92c00;
+  font-family: nanami-bold;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+
+#pagina000 {
+  top: 106px;
+  left: 50px;
+}
+#pagina015 {
+  top: 240px;
+  left: 289px;
+}
+#pagina010 {
+  top: 106px;
+  left: 209px;
+}
+#pagina020 {
+  top: 106px;
+  left: 369px;
+}
+#pagina021 {
+  top: 66px;
+  left: 528px;
+}
+#pagina022 {
+  top: 146px;
+  left: 528px;
+}
+#pagina051 {
+  top: 70px;
+  left: 684px;
+}
+#pagina030 {
+  top: 146px;
+  left: 688px;
+}
+#pagina040 {
+  top: 150px;
+  left: 844px;
+}
+#pagina101 {
+  top: 281px;
+  left: 209px;
+}
+#pagina100 {
+  top: 360px;
+  left: 209px;
+}
+#pagina091 {
+  top: 281px;
+  left: 369px;
+}
+#pagina090 {
+  top: 360px;
+  left: 369px;
+}
+#pagina080 {
+  top: 360px;
+  left: 524px;
+}
+#pagina081 {
+  top: 281px;
+  left: 524px;
+}
+#pagina060 {
+  top: 240px;
+  left: 688px;
+}
+#pagina070 {
+  top: 320px;
+  left: 684px;
+}
+#pagina050 {
+  top: 295px;
+  left: 844px;
+}
+#pagina115 {
+  top: 426px;
+  left: 50px;
+}
+#pagina110 {
+  top: 486px;
+  left: 209px;
+}
+#pagina120 {
+  top: 486px;
+  left: 369px;
+}
+#pagina130 {
+  top: 486px;
+  left: 528px;
+}
+#pagina140 {
+  top: 486px;
+  left: 688px;
+}
+#pagina150 {
+  top: 446px;
+  left: 848px;
+}
+#pagina145 {
+  top: 526px;
+  left: 848px;
+}

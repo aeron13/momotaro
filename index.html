@@ -1,0 +1,1492 @@
+﻿<html>
+<head>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="./mystyle.css">
+<script src="./phaser.min.js"></script>
+<script src="./pescalapesca.js"></script>
+<script src="./saltoConSpacebar.js"></script>
+<script src="./dolciDiRiso.js"></script>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="immagine">
+    </div>
+    <div id="layer1" class="layer">
+    </div>
+    <div id="layer2" class="layer">
+    </div>
+    <div id="layer3">
+    </div>
+    <div id="gioco1" class="game"> </div>
+    <div id="giocoOni" class="game"> </div>
+    <div id="giocoDolci" class="game"> </div>
+    <div id= "legno1" class= "legniA legni"></div>
+    <div id= "legno2" class= "legniA legni"></div>
+    <div id= "legno3" class= "legniB legni"></div>
+    <div id= "legno4" class= "legniB legni"></div>
+    <div id="testoCopertinaD">Laboratorio di Computer Grafica, Sezione C3 Proff. M. Bertolo, F. Bruschi, L. Micoli, V. Rana <br>A.A. 2017/2018 </div>
+    <div id="testoCopertinaS">Politecnico di Milano, Scuola del Design <br> Corso di Laurea in Design della Comunicazione </div>
+    <div id="testoCopertinaAutori">Marco Benciolini, Elena Gibelli,<br> Federica Laurencio, Luca Longa,<br> Margherita Magatti, Claudia Quagliarini </div>
+    <h1 id="titolo" class="testo">
+      titolo della pagina
+    </h1>
+    <div id="contenuto" class="testo">
+      contenuto della pagina
+    </div>
+    <div id="buttons">
+      <div id="left" class="bottone testo">  </div>
+      <div id="right" class="bottone testo">  </div>
+      <div id="centr" class="bottone testo">  </div>
+      <div id="leftB"> </div>
+      <div id="rightB"> </div>
+      <div id="centrB"> </div>
+    </div>
+    <div id="startGame"> </div>
+    <div id="mappa"> </div>
+    <div id="mappabuttons">
+      <div id="pagina000" class="mappaClass">  </div>
+      <div id="pagina010" class="mappaClass">  </div>
+      <div id="pagina015" class="mappaClass">  </div>
+      <div id="pagina020" class="mappaClass">  </div>
+      <div id="pagina021" class="mappaClass">  </div>
+      <div id="pagina022" class="mappaClass">  </div>
+      <div id="pagina030" class="mappaClass">  </div>
+      <div id="pagina040" class="mappaClass">  </div>
+      <div id="pagina050" class="mappaClass">  </div>
+      <div id="pagina051" class="mappaClass">  </div>
+      <div id="pagina060" class="mappaClass">  </div>
+      <div id="pagina070" class="mappaClass">  </div>
+      <div id="pagina080" class="mappaClass">  </div>
+      <div id="pagina081" class="mappaClass">  </div>
+      <div id="pagina100" class="mappaClass">  </div>
+      <div id="pagina101" class="mappaClass">  </div>
+      <div id="pagina115" class="mappaClass">  </div>
+      <div id="pagina110" class="mappaClass">  </div>
+      <div id="pagina120" class="mappaClass">  </div>
+      <div id="pagina130" class="mappaClass">  </div>
+      <div id="pagina140" class="mappaClass">  </div>
+      <div id="pagina150" class="mappaClass">  </div>
+      <div id="pagina145" class="mappaClass">  </div>
+      <div id="homeMappa"> </div>
+    </div>
+    <div id="pulsanti">
+      <div id="mappaButton" class="pulsanti"> </div>
+      <div id="home" class="pulsanti"> </div>
+    </div>
+    <div id="pulsantiCopertina">
+      <div id="autori" class="pulsanti"> </div>
+      <div id="credits" class="pulsanti"> </div>
+    </div>
+    <div id="pesca">  </div>
+  </div>
+</body>
+<script>
+//x = 0 -> i legni si mettono in modalità game
+  var x = 1;
+//controllano lo start dei giochi e la scomparsa del mouse
+  var volte = 0;
+  var volteo = 0;
+  var volted = 0;
+  var cover = 0;
+//è 1 solo nella magina della mappa
+var mappaDisplay = 0;
+//tx = 1 -> la pagina è solo testo
+var tx = 0;
+//contiene il setInterval per il lampeggio degli oggetti da cliccare
+var luce = 1;
+//tengono conto dello stato dei giochi: 0 = deve iniziare, 1 = sto giocando, 2 = perso, 3 = vinto
+var statoPesca = 0;
+var statoOni = 0;
+var statoDolci = 0;
+// var che controlla la scomparsa dei pulsanti credits e autori
+var s = 1;
+//var che controlla il pulsante mappa
+var a = 0;
+//var che controlla l'illuminazione del titolo
+var tito = 1;
+
+//var valida solo in pagina Autori
+var f = 0;
+
+//variabili che contengono i render
+//copertina
+var rc = document.createElement("img");
+rc.setAttribute("src", "./render/copertina_1.png");
+//pagina010
+var r010 = document.createElement("img");
+r010.setAttribute("src", "./render/scena10.png");
+var r010pesca = document.createElement("img");
+r010pesca.setAttribute("src", "./render/pescafiume.png");
+//pagina020
+var r020 = document.createElement("img");
+r020.setAttribute("src", "./render/scena20.png");
+var r020pentola = document.createElement("img");
+r020pentola.setAttribute("src", "./render/Pentola1_nonni.png");
+var r020coltello = document.createElement("img");
+r020coltello.setAttribute("src", "./render/Coltello1_nonni.png");
+//pagina021
+var r021 = document.createElement("img");
+r021.setAttribute("src", "./render/scena21.png");
+//pagina022
+var r022 = document.createElement("img");
+r022.setAttribute("src", "./render/scena22.png");
+var r022momo = document.createElement("img");
+r022momo.setAttribute("src", "./render/momo.png");
+//pagina030
+var r030 = document.createElement("img");
+r030.setAttribute("src", "./render/scena-30.png");
+var r030nonna = document.createElement("img");
+r030nonna.setAttribute("src", "./render/nonna.png");
+var r030nonno = document.createElement("img");
+r030nonno.setAttribute("src", "./render/nonno.png");
+//pagina050
+var r050 = document.createElement("img");
+r050.setAttribute("src", "./render/scena050.png");
+var r050frecce = document.createElement("img");
+r050frecce.setAttribute("src", "./render/frecce.png");
+var r050mochi = document.createElement("img");
+r050mochi.setAttribute("src", "./render/mochi.png");
+//pagina070
+var r070 = document.createElement("img");
+r070.setAttribute("src", "./render/scena070.png");
+var r070scimmia = document.createElement("img");
+r070scimmia.setAttribute("src", "./render/scimmia.png");
+var r070cane = document.createElement("img");
+r070cane.setAttribute("src", "./render/cane.png");
+var r070albero = document.createElement("img");
+r070albero.setAttribute("src", "./render/albero.png");
+//pagina080
+var r080 = document.createElement("img");
+r080.setAttribute("src", "./render/scena80.png");
+//pagina081
+var r081 = document.createElement("img");
+r081.setAttribute("src", "./render/scena81.png");
+//pagina120
+var r120 = document.createElement("img");
+r120.setAttribute("src", "./render/scena120.png");
+//pagina140
+var r140 = document.createElement("img");
+r140.setAttribute("src", "./render/scena140.png");
+var r140mano = document.createElement("img");
+r140mano.setAttribute("src", "./render/mano.png");
+var r140arco = document.createElement("img");
+r140arco.setAttribute("src", "./render/arco.png");
+//pagina145
+var r145 = document.createElement("img");
+r145.setAttribute("src", "./render/scena145.png");
+//scena150
+var r150 = document.createElement("img");
+r150.setAttribute("src", "./render/scena-150.png");
+//scena051
+var r051 = document.createElement("img");
+r051.setAttribute("src", "./render/scena051.png");
+//scena100
+var r100 = document.createElement("img");
+r100.setAttribute("src", "./render/scena100-101.png");
+var r100cane = document.createElement("img");
+r100cane.setAttribute("src", "./render/cane1.png");
+var r100scimmia = document.createElement("img");
+r100scimmia.setAttribute("src", "./render/scimmia1.png");
+//scena101
+var r101 = document.createElement("img");
+r101.setAttribute("src", "./render/scena100-101.png");
+var r101cane = document.createElement("img");
+r101cane.setAttribute("src", "./render/cane1.png");
+//scena110
+var r110 = document.createElement("img");
+r110.setAttribute("src", "./render/scena110.png");
+var r110frecciadx = document.createElement("img");
+r110frecciadx.setAttribute("src", "./render/frecciadx.png");
+var r110frecciasx = document.createElement("img");
+r110frecciasx.setAttribute("src", "./render/frecciasx.png");
+
+
+
+pagine = {
+
+  copertina: {
+tx: 2,
+mappaDisplay: 0,
+x: 2,
+s: 1,
+a: 0,
+f: 0,
+cover: 1,
+  title: "MOMOTARO",
+    content: "",
+    leftText: "",
+  centrText: "",
+ goRight: "",
+  goLeft: "pagina000",
+  goMappa: "paginaMappa",
+  goHome: "copertina",
+  pAutori: "paginaAutori",
+  pCredits: "paginaCredits",
+  render: "",
+  layer1: "",
+  layer2: "",
+  layer3: "",
+},
+
+  pagina000: {
+tx: 1,
+mappaDisplay: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+  title: "Introduzione",
+    content: "<p>Tanto tempo fa in Giappone vivevano <b class = 'grassetto'>due anziani contadini</b>. Ogni giorno il marito falciava l’erba per i vicini, mentre la moglie si occupava della casa e del loro piccolo campo di riso.</p> <p>Un giorno l’anziana signora <span class='clickL'>andò al fiume</span> per lavare i panni.</p>",
+    leftText: "",
+  centrText: "",
+ goRight: "",
+  goLeft: "pagina010",
+  goMappa: "paginaMappa",
+  goHome: "copertina",
+  render: "",
+},
+
+pagina010: {
+tx: 0,
+mappaDisplay: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+title: "La pesca",
+  content: " Mentre lavorava vide scorrere, trasportata dalla corrente, <b class = 'grassetto'>un’enorme pesca</b>: decise di recuperarla per portarla a casa e mangiarla insieme a suo marito.",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "pagina015",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r010,
+layer1: r010pesca,
+layer2: "",
+layer3: "",
+left1: "467px",
+top1: "460px",
+
+},
+
+pagina015: {
+tx: 0,
+mappaDisplay: 0,
+x: 0,
+s: 0,
+a: 0,
+f: 0,
+title: "",
+  content: "",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "pagina020",
+game: "#gioco1",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: "",
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina020: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Si mangia!",
+  content: "<p><b class = 'grassetto'>La donna giunse a casa con la pesca</b>, orgogliosa di averla presa, e attese con impazienza il ritorno del marito.</p> <p>Al calar del sole <b class = 'grassetto'>il contadino tornò</b> stanco e affamato dal lavoro e si rallegrò moltissimo nel vedere quella pesca enorme! </p> <p>I due si misero quindi a discutere su <b class = 'grassetto'>come mangiare il frutto</b>.</p> ",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina022",
+goRight: "pagina021",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r020,
+layer1: r020pentola,
+layer2: r020coltello,
+layer3: "",
+left1: "343.5px",
+top1: "503.5px",
+left2: "504.5px",
+top2: "481px",
+},
+
+pagina021: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "La marmellata",
+  content: "<p>I contadini <b class = 'grassetto'>prepararono la marmellata</b> e la mangiarono per cena con gran gusto. Quindi andarono a dormire sazi e felici, come non lo erano stati da molto tempo.</p> <p><span class='clickL'>E se l'avessero tagliata?</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina020",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r021,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina022: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Il figlio della pesca",
+  content: "<p>I due anziani stavano per <b class = 'grassetto'>tagliare la pesca</b> quando improvvisamente il frutto si spaccò in due e <b class = 'grassetto'>ne uscì un bimbo grazioso</b>!</p><p>Il bambino li rassicurò dicendo di essere stato <b class = 'grassetto'>inviato dagli dèi</b> per esaudire il loro desiderio di avere un figlio.</br> Lo chiamarono <b class = 'grassetto'>Momotaro</b>, ovvero “Figlio di una Pesca”.</p> Il bimbo crebbe in fretta...",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "pagina030",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r022,
+layer1: r022momo,
+layer2: "",
+layer3: "",
+left1: "428px",
+top1: "325px",
+},
+
+pagina030: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Gli orchi",
+  content: "<p>Un bel giorno, fattosi grande, forte e valoroso, andò dal padre e gli parlò di <b class = 'grassetto'>un gruppo di orchi che minacciavano il villaggio</b>: egli <b class = 'grassetto'>desiderava partire</b> per porre fine alle ingiustizie e liberare i prigionieri.</p> <p><b class = 'grassetto'>La nonna non era d'accordo,</b> mentre <b class = 'grassetto'>il nonno lo incoraggiò</b> offrendosi di preparare dei dolci di riso per il viaggio.</p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina040",
+goRight: "pagina051",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r030,
+layer1: r030nonna,
+layer2: r030nonno,
+layer3: "",
+left1: "423px",
+top1: "407.5px",
+left2: "827px",
+top2: "427.5px",
+},
+
+pagina040: {
+tx: 0,
+x: 0,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "",
+content: "",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "pagina050",
+game: "#giocoDolci",
+goHome: "copertina",
+goMappa: "paginaMappa",
+render: "",
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina051: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Partenza",
+  content: "<p><b class = 'grassetto'>Ignorando il divieto della nonna</b> e i sensi di colpa, Momotaro decise di partire ugualmente e se ne andò nottetempo. </p> <p>All’alba si fermò nel bosco per riposare, ma <b class = 'grassetto'>lo aggredì un cane affamato</b>, disposto a tutto pur di ottenere del cibo.</p> <p>Non aveva altra scelta che <span class='clickL'>tornare a casa!</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goRight: "",
+goLeft: "pagina030",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r051,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina050: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Il cane",
+  content: "<p>Ricevuti i dolci, <b class = 'grassetto'>Momotaro salutò gli anziani</b>, che gli augurarono buona fortuna.</p> <p>Dopo una giornata di cammino il giovane, affaticato, decise di mangiarne uno. Non appena l’ebbe preso però, <b class = 'grassetto'>un cane rabbioso uscì dal bosco</b>, disposto a tutto per ottenere del cibo!</p> <p>Il ragazzo si chiese se fosse meglio difendersi od offrire al cane i suoi dolci...</p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina070",
+goRight: "pagina060",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r050,
+layer1: r050frecce,
+layer2: r050mochi,
+layer3: "",
+left1: "885px",
+top1: "327px",
+left2: "535px",
+top2: "457px",
+},
+
+pagina060: {
+tx: 1,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Fame e disperazione",
+  content: "<p>Momotaro affrontò il cane, poiché si sentiva forte e risoluto; ma il cane era così disperato per la fame che <b class = 'grassetto'>azzannò il ragazzo alla gola</b> e lo uccise in un sol colpo.</p> <p> <span class='clickL'>E se le cose fossero andate diversamente?</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina022",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: "",
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina070: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+title: "La scimmia",
+  content: "Dopo essersi rifocillato, <b class = 'grassetto'>il cane si unì a Momotaro</b> nell’impresa.</p> Durante il loro cammino però incapparono in <b class = 'grassetto'>una scimmia</b>, anch’essa desiderosa di far parte della compagnia.</p> <b class = 'grassetto'>Il cane si oppose</b> con ferocia, poiché considerava la scimmia un animale <b class = 'grassetto'>poco affidabile</b>. Momotaro non sapeva se ascoltare il cane o accettare la scimmia!",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina081",
+goRight: "pagina080",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r070,
+layer1: r070scimmia,
+layer2: r070cane,
+layer3: r070albero,
+left1: "815px",
+top1: "365px",
+left2: "580px",
+top2: "312px",
+left3: "606px",
+top3: "354px",
+},
+
+pagina080: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Il fagiano all'attacco",
+  content: "<p>Nonostante cane e scimmia continuassero a punzecchiarsi, i tre eroi proseguirono nel loro cammino.</p> <p> Giunsero così in un vasto campo, dove però vennero sorpresi da <b class = 'grassetto'>un velocissimo fagiano</b> dalle piume colorate! L’animale scese in picchiata e avanzò minaccioso verso il gruppo, ma il cane reagì con prontezza e <span class='clickL'>lo convinse ad arrendersi.</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina100",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r080,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina081: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Il fagiano all'attacco",
+  content: "<p>Dopo che il cane, entusiasta, si fu sbarazzato del rivale, i due ripresero il viaggio e giunsero rapidamente nel mezzo di un vasto campo.</p> <p>Lì vennero sorpresi da <b class = 'grassetto'>un velocissimo fagiano</b> dalle splendide piume colorate. Il cane attaccò l'uccello e riuscì a <span class='clickL'>vincere lo scontro.</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina101",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r081,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina100: {
+tx: 0,
+x: 1,
+s: 0,
+a: 0,
+f: 0,
+mappaDisplay: 0,
+title: "Fidarsi?",
+  content: "<p>Il fagiano si pentì di averli aggrediti e <b class = 'grassetto'>accettò di unirsi agli altri</b>.</p> <p>I quattro arrivarono quindi a <b class = 'grassetto'>un bivio</b>: nessuno sapeva quale strada convenisse prendere, eccetto <b class = 'grassetto'>la scimmia</b>, che <b class = 'grassetto'>propose la via che riteneva corretta</b>.</p> <p>Il cane, però, considerandola inaffidabile, <b class = 'grassetto'>non era d’accordo</b>. Momotaro non sapeva a chi dare ascolto!</p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina115",
+goRight: "pagina110",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r100,
+layer1: r100scimmia,
+layer2: r100cane,
+layer3: "",
+left1: "335px",
+top1: "389px",
+left2: "885px",
+top2: "385px",
+},
+
+pagina101: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+title: "Fidarsi?",
+  content: "<p>Il fagiano si pentì di averli aggrediti, e accettò di unirsi ai due nella difficile missione. Il cane questa volta, seppur geloso, decise di accettarlo.</p> <p>Arrivarono poi a <b class='grassetto'>un bivio</b>: nessuno sapeva quale strada convenisse prendere, decisero quindi di seguire il fiuto del cane</p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "pagina115",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r101,
+layer1: r101cane,
+layer2: "",
+layer3: "",
+left1: "885px",
+top1: "385px",
+},
+
+pagina110: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+title: "Il mare di Nordest",
+  content: "<p>Dopo giorni di viaggio, i quattro compagni arrivarono alle rive del <b class='grassetto'>Mare di Nordest</b>. I tre animali non avevano mai visto il mare in vita loro, motivo per cui si sentirono più che mai <b class='grassetto'>spaventati e scoraggiati</b>.</p> <p>Tuttavia la traversata era necessaria per <b class='grassetto'>raggiungere il castello dei nemici</b>. Gli animali potevano farsi coraggio e mantenere il loro impegno o tornare indietro, visto la pericolosità del mare.</p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina120",
+goRight: "pagina115",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r110,
+layer1: r110frecciasx,
+layer2: r110frecciadx,
+layer3: "",
+left1: "857",
+top1: "420px",
+left2: "865",
+top2: "370px",
+},
+
+pagina115: {
+  tx: 1,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+  title: "Momotaro viene scoperto",
+  content: "<p>Lungo la strada Momotaro si imbatté <b class='grassetto'>in un gruppo di oni</b> che indovinarono il suo intento: i nemici in gruppo corsero all’attacco ed infine, essendo in maggioranza, <span class='grassetto'>vinsero lo scontro.</span></p> <p><span class='clickL'>E se le cose fossero andate diversamente?</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina022",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: "",
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina120: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+  title: "Il viaggio in mare",
+  content: "<p>Gli animali si convinsero: affrontarono tutti insieme il viaggio in mare e con il vento a favore navigarono velocemente sino all’<b class='grassetto'>isola degli orchi.</b></p> </p><b class='grassetto'>Il gruppo quindi si organizzò per l’attacco</b>: il fagiano avrebbe dovuto distrarre i servitori, in modo che i suoi compagni potessero <span class='clickL'>infiltrarsi nel castello...</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina130",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r120,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina130: {
+  tx: 0,
+  x: 0,
+s: 0,
+a: 0,
+f: 0,
+  mappaDisplay: 0,
+  title: "",
+content: "",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "pagina140",
+game: "#giocoOni",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: "",
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina140: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+  title: "Pietà",
+  content: "<p>I quattro eroi condussero una <b class='grassetto'>battaglia senza tregua</b> contro gli oni, e non ne risparmiarono nessuno: alla fine <b class='grassetto'>rimase solo il loro Re</b>. </p><p>Il superstite cadde a terra davanti a Momotaro e <b class='grassetto'>supplicò di essere risparmiato</b>, offrendogli in cambio tutta la propria ricchezza. Momotaro poteva dargli una seconda possibilità o ucciderlo subito.</p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina145",
+goRight: "pagina150",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r140,
+layer1: r140arco,
+layer2: r140mano,
+layer3: "",
+left1: "618px",
+top1: "414px",
+left2: "729px",
+top2: "411px",
+},
+
+pagina150: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+  title: "E vissero tutti felici e contenti",
+  content: "<p>Momotaro intuì le intenzioni malvage dell’orco, decise di non fidarsi e <b class='grassetto'>pose fine alla sua vita.</b></p> <p>I prigionieri del castello vennero infine liberati, e grazie al tesoro degli orchi il villaggio di Momotaro e dei suoi genitori poté finalmente <b class='grassetto'>prosperare e vivere in pace.</b></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina150",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r150,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+pagina145: {
+  tx: 0,
+  x: 1,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 0,
+  title: "Fidarsi è bene...",
+  content: "<p>Momotaro, che aveva buon cuore, provò pietà per quell’essere implorante, e <b class='grassetto'>decise di risparmiarlo</b>; ma nel momento in cui gli tese la mano per aiutarlo ad alzarsi, l’oni con vigore afferrò il braccio dell’eroe e lo <span class='grassetto'>uccise a tradimento.</span></p> <p><span class='clickL'>E se avessero scelto un'altra via?</span></p>",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "pagina110",
+goRight: "",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: r145,
+layer1: "",
+layer2: "",
+layer3: "",
+},
+
+paginaMappa: {
+  tx: 0,
+  x: 0,
+  s: 0,
+  a: 0,
+  f: 0,
+  mappaDisplay: 1,
+  title: "",
+  content: "",
+rightText: "",
+leftText: "",
+centrText: "",
+goLeft: "",
+goRight: "",
+goHome: "copertina",
+  p000: "pagina000",
+  p010: "pagina010",
+  p015: "pagina015",
+  p020: "pagina020",
+  p021: "pagina021",
+  p022: "pagina022",
+  p030: "pagina030",
+  p040: "pagina040",
+  p050: "pagina050",
+  p051: "pagina051",
+  p060: "pagina060",
+  p070: "pagina070",
+  p080: "pagina080",
+  p081: "pagina081",
+  p090: "pagina090",
+  p091: "pagina091",
+  p100: "pagina100",
+  p101: "pagina101",
+  p110: "pagina110",
+  p115: "pagina115",
+  p120: "pagina120",
+  p130: "pagina130",
+  p140: "pagina140",
+  p145: "pagina145",
+  p150: "pagina150",
+},
+
+paginaAutori: {
+tx: 1,
+mappaDisplay: 0,
+x: 1,
+s: 0,
+a: 1,
+f: 1,
+title: "Autori",
+  content: "",
+  leftText: "",
+centrText: "",
+goRight: "",
+goLeft: "copertina",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: "",
+},
+
+paginaCredits: {
+tx: 1,
+mappaDisplay: 0,
+x: 1,
+s: 0,
+a: 1,
+f: 0,
+title: "Crediti",
+  content: "Momotaro è una fiaba tradizionale giapponese risalente al periodo Edo, per cui non è possibile risalire all'autore</p>Texture:</p><a href='https://it.depositphotos.com/'>depositphotos</a></br><a href='http://toreto.com/'>toreto</a></br><a href='http://freewebelements.com/'>freewebelements</a></br><a href='https://www.textures.com/'>textures</a></br><a href='http://www.texturex.com/'>texturex</a></br><a href='https://www.sketchuptextureclub.com/'>sketchuptextureclub</a></br><a href='http://www.pictureicon.com/'>pictureicon</a></br><a href='https://it.123rf.com/'>123rf</a></br><a href='http://www.custom-landscaping.com'>custom-landscaping</a></p>Immagini o stampe giapponesi:</p><a href='https://www.deviantart.com/'>deviantart</a></br><a href='https://it.pinterest.com/'>pinterest</a></br><a href='https://www.pipstudio.com/'>pipstudio</a></p>font:</p><a href='http://brushfonts.com/'>brushfonts</a></p>Sfondi:</p><a href='https://www.canstockphoto.it'>canstockphoto</a>",
+  leftText: "",
+centrText: "",
+goRight: "",
+goLeft: "copertina",
+goMappa: "paginaMappa",
+goHome: "copertina",
+render: "",
+},
+
+}
+//stato = "pagina020";
+stato = "copertina";
+render();
+
+function titoloIllumina() {
+  if(tito == 1) {$("#titolo").toggleClass("light");
+  $(this).css({transition: "0s"});
+}}
+
+function vaiTitolo() {
+  if(tito == 1) {goLeft()};
+  $("#titolo").removeClass("light");
+  tito = 0;
+}
+
+function render() {
+  luce = 1;
+  paginaCorrente = pagine[stato];
+  if(paginaCorrente.s == 1) {
+    $("#wrapper").addClass("cover");
+    $("#titolo").addClass("cover").removeClass("sposta");
+    $("#contenuto").addClass("cover");
+    $("#centr").addClass("cover");
+    $("#buttons").addClass("cover");
+    $(".legni").fadeOut();
+    $("#home").addClass("cover");
+    $("#testoCopertinaD").fadeIn();
+    $("#testoCopertinaS").fadeIn();
+    $("#testoCopertinaAutori").fadeIn();
+    $("#autori").fadeIn();
+    $("#credits").fadeIn();
+    $("#titolo").on("mouseover mouseout", titoloIllumina)
+    $("#titolo").on("click", vaiTitolo)
+    $("#pulsanti").removeClass("gioco");
+  } else if (paginaCorrente.s == 0) {
+    $("#wrapper").removeClass("cover");
+    $("#titolo").removeClass("cover");
+    $(".legni").fadeIn();
+    $("#contenuto").removeClass("cover");
+    $("#centr").removeClass("cover");
+    $("#testoCopertinaD").fadeOut();
+    $("#testoCopertinaS").fadeOut();
+    $("#testoCopertinaAutori").fadeOut();
+    $("#buttons").removeClass("cover");
+    $("#pulsanti").removeClass("cover");
+    $("#home").removeClass("cover");
+    $("#autori").fadeOut();
+    $("#credits").fadeOut();
+  }
+  //sposta legni e pulsanti quando ci sono giochi e mappa
+  if (paginaCorrente.x==0)
+  {
+    $("#legno3").addClass("sposta3");
+    $("#legno4").addClass("sposta4");
+    $("#legno2").addClass("sposta2");
+    $("#legno1").addClass("sposta1");
+    $("#pulsanti").addClass("gioco");
+  }//rimette a posto i legni quando non ci sono giochi e mappa
+  if (paginaCorrente.x==1) {
+    $("#legno3").removeClass("sposta3");
+    $("#legno4").removeClass("sposta4");
+    $("#legno2").removeClass("sposta2");
+    $("#legno1").removeClass("sposta1");
+    $("#pulsanti").removeClass("gioco");
+    $("#pesca").fadeOut();
+    $("#giocoDolci").removeClass("appare");
+    $("#giocoOni").removeClass("appare");
+  }//fa scomparire la mappa
+  if (paginaCorrente.mappaDisplay == 0) {
+    $("#mappa").fadeOut();
+    $("#mappabuttons").fadeOut();
+    $("#pulsanti").removeClass("giocoVa");
+  }//fa comparire la mappa
+  if(paginaCorrente.mappaDisplay == 1) {
+    tito = 0;
+    $("#mappa").fadeIn();
+    $("#mappabuttons").fadeIn();
+    $("#pulsanti").addClass("giocoVa");
+
+  }//pagine con solo testo
+  if(paginaCorrente.tx == 1) {
+    $("#contenuto").addClass("sposta");
+    $("#titolo").addClass("sposta");
+    $(".legni").css({display: "none"});
+    $("#centr").addClass("sposta");
+    $("#pulsanti").addClass("sposta");
+    $("#immagine").css({display: "none"});
+    $("#layer1").css({display: "none"});
+    $("#layer2").css({display: "none"});
+      $("#layer3").css({display: "none"});
+
+  }
+  if(paginaCorrente.tx == 0) {
+    $("#contenuto").removeClass("sposta");
+    $("#titolo").removeClass("sposta");
+    $(".legni").fadeIn();
+    $("#immagine").fadeIn();
+    $("#layer1").fadeIn();
+    $("#layer2").fadeIn();
+    $("#layer3").fadeIn();
+    $("#centr").removeClass("sposta");
+    $("#pulsanti").removeClass("sposta");
+    }
+
+if(paginaCorrente.a == 0) {
+
+}
+
+  $(".game").css({display:"none"})
+  $("#pesca").css({display:"none"})
+  $("#titolo").text(paginaCorrente.title)
+  $("#contenuto").html(paginaCorrente.content)
+  $("#left").text(paginaCorrente.leftText)
+  $("#centr").text(paginaCorrente.centrText)
+  $("#right").text(paginaCorrente.rightText)
+  //rimuove le immagini delle pagine precedenti
+  $("#immagine").children().remove();
+  $("#layer1").children().remove();
+  $("#layer2").children().remove();
+  $("#layer3").children().remove();
+
+  //aggiunge le immagini della pagina corrente
+  $("#immagine").append(paginaCorrente.render);
+  $("#layer1").append(paginaCorrente.layer1);
+  $("#layer2").append(paginaCorrente.layer2);
+  $("#layer3").append(paginaCorrente.layer3);
+
+  //posiziona layer1 e layer2 a seconda dell'immagine che contengono
+  $("#layer1").css({
+    top: paginaCorrente.top1,
+    left: paginaCorrente.left1,
+  })
+  $("#layer2").css({
+    top: paginaCorrente.top2,
+    left: paginaCorrente.left2,
+  })
+  $("#layer3").css({
+    top: paginaCorrente.top3,
+    left: paginaCorrente.left3,
+  })
+if(paginaCorrente.layer1) {luce = 1;
+  //illumina l'oggetto all'hover
+  //$(".layer").delay(1000).css({transition: "1s"})
+  $(".layer").mouseover(function() {
+    $(".layer").removeClass("illumina");
+    luce = 0;
+    $(this).addClass("illumina2");
+
+  }).mouseout(function() {
+    luce = 1;
+    $(this).removeClass("illumina2");
+    //$(this).css({transition: "1s"});
+
+  }).click(function() {
+    $(this).removeClass("illumina2");
+    //$(".layer").css({transition: "0s"});
+    $(".layer").removeClass("illumina");
+    luce = 1;
+    //clearInterval(xluce);
+  });}
+  //hover dei pulsanti home e mappa
+  $(".pulsanti").mouseover(function() {
+    $(this).addClass("illumina");
+  }).mouseout(function() {
+    $(this).removeClass("illumina");
+  })
+  //hover dei tasti contenenti testo
+  $(".bottone").mouseover(function() {
+    $(this).addClass("illumina");
+  }).mouseout(function() {
+    $(this).removeClass("illumina");
+  })
+//controlla l'illuminazione delle parole del contenute che se cliccate mandano alle pagine successive, le parole sono identificate dalla classe click
+  $(".clickL").mouseover(function() {
+    $(this).addClass("light");
+  }).mouseout(function() {
+    $(this).removeClass("light");
+  }).click(function() {
+      goLeft();
+  })
+
+  $(".clickR").mouseover(function() {
+    $(this).addClass("light");
+  }).mouseout(function() {
+    $(this).removeClass("light");
+  }).click(function() {
+      goRight();
+  })
+//controlla l'illuminazione dei pulsanti della mappa quando si va sopra con il mouse
+  $(".mappaClass").mouseover(function() {
+    $(this).addClass("light");
+  }).mouseout(function() {
+    $(this).removeClass("light");
+  })
+  $("#homeMappa").mouseover(function() {
+    $(this).addClass("light");
+  }).mouseout(function() {
+    $(this).removeClass("light");
+  })
+  //regola la comparsa o scomparsa del mouse
+  if(paginaCorrente.game)
+  {
+    $(paginaCorrente.game).delay(500).fadeIn();
+    //$("#contenuto").fadeOut();
+    statoPesca = 0;
+    statoOni = 0;
+    statoDolci = 0;
+    if(paginaCorrente.game == "#giocoOni") {oniCompari(); //$("#giocoOni").addClass("mouseVa");
+  }
+    else if(paginaCorrente.game == "#gioco1") {pescaCompari();}
+    else if(paginaCorrente.game == "#giocoDolci") {dolciCompari();}
+    //$("#gioco1").on("click", mouseSparisce);
+    //$("#giocoOni").on("click", mouseSparisceO);
+  } else {
+    //$("#giocoOni").removeClass("mouseVa");
+  }
+
+  if(paginaCorrente.a == 1) {tito = 0;};
+  if(paginaCorrente.a == 1) {
+      tito = 0;
+        $("#mappaButton").css({display: "none"});
+      $("#titolo").addClass("credits");
+     $("#contenuto").addClass("credits");
+     $("#titolo").removeClass("sposta");
+     $("#contenuto").removeClass("sposta")
+   };
+  if(paginaCorrente.a == 0) {
+    $("#mappaButton").fadeIn();
+    $("#titolo").removeClass("credits");
+    $("#contenuto").removeClass("credits");
+  }
+
+  if(paginaCorrente.f == 1) {
+    $("#mappa").addClass("autori");
+    $("#mappa").fadeIn();
+    $("#titolo").addClass("autori");
+    //$("#pulsanti").addClass("autori");
+
+  }
+
+    if(paginaCorrente.f == 0) {
+      $("#mappa").removeClass("autori");
+      //  $("#pulsanti").removeClass("autori");
+      $("#titolo").removeClass("autori");
+ }
+
+
+} //-----end of render function
+setInterval(light, 4000);
+//regola la comparsa del gioco pesca e della pesca di start, gameOver e victory
+function pescaCompari() {
+  $("#pesca").delay(500).fadeIn();
+  //il gioco non è ancora iniziato ed è fermo
+  if (statoPesca == 0) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pulsanti").fadeIn();
+    $("#pesca").removeClass("dead");
+    $("#pesca").removeClass("won");
+    $("#pesca").removeClass("startnonno");
+    $("#pesca").removeClass("deadnonno");
+    $("#pesca").removeClass("wonnonno");
+    $("#pesca").removeClass("startmomo");
+    $("#pesca").removeClass("deadmomo");
+    $("#pesca").removeClass("wonmomo");
+  $("#pesca").addClass("start");
+  $("#gioco1").removeClass("mouse");
+}
+  //si sta giocando
+  else if(statoPesca == 1) {
+    $("#pulsanti").addClass("giocoVa");
+    $("#pesca").removeClass("start");
+    $("#pesca").removeClass("dead");
+    $("#pesca").removeClass("won");
+    $("#pesca").fadeOut();
+    $("#gioco1").addClass("appare");
+    $("#gioco1").addClass("mouse");
+  }
+
+  //hai perso e il gioco è fermo
+  else if(statoPesca == 2) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pesca").addClass("dead");
+    $("#pesca").fadeIn();
+    $("#gioco1").removeClass("appare");
+    $("#giocoOni").removeClass("appare");
+    $("#gioco1").removeClass("mouse");
+  }//hai vinto e il gioco è fermo
+  else if(statoPesca == 3) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pulsanti").fadeIn();
+    $("#pesca").fadeIn();
+    $("#pesca").addClass("won");
+    $("#pesca").removeClass("dead");
+    $("#gioco1").removeClass("appare");
+    $("#giocoOni").removeClass("appare");
+    $("#gioco1").removeClass("mouse");
+
+  }
+}
+
+//regola la comparsa del gioco oni e della pesca di start, gameOver e victory
+function oniCompari() {
+  $("#pesca").delay(500).fadeIn();
+  //il gioco non è ancora iniziato ed è fermo
+  if (statoOni == 0) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pulsanti").fadeIn();
+    $("#pesca").removeClass("dead");
+    $("#pesca").removeClass("won");
+    $("#pesca").removeClass("startnonno");
+    $("#pesca").removeClass("deadnonno");
+    $("#pesca").removeClass("wonnonno");
+    $("#pesca").removeClass("start");
+    $("#pesca").removeClass("deadmomo");
+    $("#pesca").removeClass("wonmomo");
+  $("#pesca").addClass("startmomo");
+  $("#giocoOni").removeClass("mouse");
+}
+  //si sta giocando
+  else if(statoOni == 1) {
+    $("#giocoOni").addClass("mouse");
+    $("#pulsanti").addClass("giocoVa");
+    $("#pesca").removeClass("startmomo");
+    $("#pesca").removeClass("deadmomo");
+    $("#pesca").removeClass("wonmomo");
+    $("#pesca").removeClass("dead");
+    $("#pesca").removeClass("won");
+    $("#pesca").fadeOut();
+    $("#giocoOni").addClass("appare");
+
+  }
+  //hai perso e il gioco è fermo
+  else if(statoOni == 2) {
+    $("#giocoOni").removeClass("mouse");
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pesca").removeClass("startmomo");
+    $("#pesca").removeClass("wonmomo");
+    $("#pesca").addClass("deadmomo");
+    $("#pesca").fadeIn();
+    $("#giocoOni").removeClass("appare");
+  }//hai vinto e il gioco è fermo
+  else if(statoOni == 3) {
+    $("#giocoOni").removeClass("mouse");
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pesca").fadeIn();
+    $("#pesca").addClass("wonmomo");
+    $("#pesca").removeClass("deadmomo");
+    $("#giocoOni").removeClass("appare");
+  }
+}
+//regola la comparsa del gioco dolci e della pesca di start, gameOver e victory
+function dolciCompari() {
+  $("#pesca").delay(500).fadeIn();
+  //il gioco non è ancora iniziato ed è fermo
+  if (statoDolci == 0) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pulsanti").fadeIn();
+    $("#pesca").removeClass("dead");
+    $("#pesca").removeClass("won");
+    $("#pesca").removeClass("start");
+    $("#pesca").removeClass("deadnonno");
+    $("#pesca").removeClass("wonnonno");
+    $("#pesca").removeClass("startmomo");
+    $("#pesca").removeClass("deadmomo");
+    $("#pesca").removeClass("wonmomo");
+  $("#pesca").addClass("startnonno");}
+  //si sta giocando
+  else if(statoDolci == 1) {
+    $("#pulsanti").addClass("giocoVa");
+    $("#pesca").removeClass("startnonno");
+    $("#pesca").removeClass("deadnonno");
+    $("#pesca").removeClass("wonnonno");
+    $("#pesca").fadeOut();
+    $("giocoDolci").addClass("appare");
+  }
+  //hai perso e il gioco è fermo
+  else if(statoDolci == 2) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pesca").fadeIn();
+    $("#pesca").removeClass("startnonno");
+    $("#pesca").addClass("deadnonno");
+    $("#giocoDolci").removeClass("appare");
+  }//hai vinto e il gioco è fermo
+  else if(statoDolci == 3) {
+    $("#pulsanti").removeClass("giocoVa");
+    $("#pesca").fadeIn();
+    $("#pesca").addClass("wonnonno");
+    $("#pesca").removeClass("deadnonno");
+    $("#pesca").removeClass("startnonno");
+    $("#giocoDolci").removeClass("appare");
+  }
+}
+//fanno lampeggiare gli oggetti da cliccare
+function lightless() {
+  $(".layer").removeClass("illumina");
+$(".layer").css({transition: "filter 1s"})
+}
+
+function light() { if(luce==1){
+  $(".layer").addClass("illumina");
+  setTimeout(lightless, 1000);}
+}
+//regola la comparsa del mouse in pesca la pesca
+/*function mouseSparisce() {
+  volte = volte + 1;
+  if(volte % 2 == 0) {
+  $("#gioco1").addClass("mouse");
+ }
+  else { $("#gioco1").removeClass("mouse");
+ }
+}*/
+//regola la comparsa del mouse nel gioco oni
+/*function mouseSparisceO() {
+  volteo = volteo + 1;
+  if(volteo % 2 == 0) {
+  $("#giocoOni").addClass("mouse");}
+  else { $("#giocoOni").removeClass("mouse");
+}
+}
+*/
+function goLeft () {
+  stato = pagine[stato].goLeft; luce = 1;
+  render()
+}
+
+$("#left").on("click", goLeft);
+$("#layer2").on("click", goLeft)
+
+function goRight () {
+  stato = pagine[stato].goRight; luce = 1;
+  render()
+}
+
+$("#right").on("click", goRight)
+$("#layer1").on("click", goRight)
+
+function goCenter () {
+  stato = pagine[stato].goLeft;
+  render()
+}
+
+$("#centr").on("click", goCenter)
+
+function goMappa() {
+  stato = pagine[stato].goMappa;
+  $("#pesca").fadeOut();
+  render();
+}
+
+function goHome() {
+  stato = pagine[stato].goHome;
+  $("#pesca").fadeOut();
+  tito = 1;
+  $("#titolo").on("mouseover mouseout", titoloIllumina).on("click", vaiTitolo)
+  render()
+}
+$("#mappaButton").on("click", goMappa)
+$("#home").on("click", goHome)
+$(".game").on("click", appari)
+
+//toglie il blur ai giochi e fa sparire la pesca
+function appari() {
+  //lasciare questo if altrimenti succedono casini nel gioco dolci
+  if(statoDolci == 1) {
+  $(this).addClass("appare");
+  $("#pesca").removeClass("start");
+} else if(statoOni == 1) {
+  $(this).addClass("appare");
+  $("#pesca").removeClass("start");
+} else if(statoPesca == 1) {
+  $(this).addClass("appare");
+  $("#pesca").removeClass("start");
+}
+ }
+
+
+//funzioni dei tasti della mappa
+$("#homeMappa").on("click", goHome);
+
+function p000() {
+  stato = pagine[stato].p000;
+  render()
+}
+$("#pagina000").on("click", p000)
+
+function p010() {
+  stato = pagine[stato].p010;
+  render()
+}
+$("#pagina010").on("click", p010)
+
+function p015() {
+  stato = pagine[stato].p015;
+  render()
+}
+$("#pagina015").on("click", p015)
+
+function p020() {
+  stato = pagine[stato].p020;
+  render()
+}
+$("#pagina020").on("click", p020)
+
+function p021() {
+  stato = pagine[stato].p021;
+  render()
+}
+$("#pagina021").on("click", p021)
+function p022() {
+  stato = pagine[stato].p022;
+  render()
+}
+$("#pagina022").on("click", p022)
+function p051() {
+  stato = pagine[stato].p051;
+  render()
+}
+$("#pagina051").on("click", p051)
+function p030() {
+  stato = pagine[stato].p030;
+  render()
+}
+$("#pagina030").on("click", p030)
+
+function p040() {
+  stato = pagine[stato].p040;
+  render();
+}
+$("#pagina040").on("click", p040)
+
+function p050() {
+  stato = pagine[stato].p050;
+  render()
+}
+$("#pagina050").on("click", p050)
+
+function p060() {
+  stato = pagine[stato].p060;
+  render()
+}
+$("#pagina060").on("click", p060)
+
+function p070() {
+  stato = pagine[stato].p070;
+  render()
+}
+$("#pagina070").on("click", p070)
+
+function p080() {
+  stato = pagine[stato].p080;
+  render()
+}
+$("#pagina080").on("click", p080)
+
+function p081() {
+  stato = pagine[stato].p081;
+  render()
+}
+$("#pagina081").on("click", p081)
+
+function p090() {
+  stato = pagine[stato].p090;
+  render()
+}
+$("#pagina090").on("click", p090)
+
+function p091() {
+  stato = pagine[stato].p091;
+  render()
+}
+$("#pagina091").on("click", p091)
+
+function p101() {
+  stato = pagine[stato].p101;
+  render()
+}
+$("#pagina101").on("click", p101)
+
+function p100() {
+  stato = pagine[stato].p100;
+  render()
+}
+$("#pagina100").on("click", p100)
+
+function p110() {
+  stato = pagine[stato].p110;
+  render()
+}
+$("#pagina110").on("click", p110)
+
+function p115() {
+  stato = pagine[stato].p115;
+  render()
+}
+$("#pagina115").on("click", p115)
+
+function p120() {
+  stato = pagine[stato].p120;
+  render()
+}
+$("#pagina120").on("click", p120)
+
+function p130() {
+  stato = pagine[stato].p130;
+  render();
+}
+$("#pagina130").on("click", p130)
+
+function p140() {
+  stato = pagine[stato].p140;
+  render()
+}
+$("#pagina140").on("click", p140)
+
+function p150() {
+  stato = pagine[stato].p150;
+  render()
+}
+$("#pagina150").on("click", p150)
+
+function p145() {
+  stato = pagine[stato].p145;
+  render()
+}
+$("#pagina145").on("click", p145)
+
+function pAutori() {
+  stato = pagine[stato].pAutori;
+  render()
+}
+$("#autori").on("click", pAutori)
+
+function pCredits() {
+  stato = pagine[stato].pCredits;
+  render()
+}
+$("#credits").on("click", pCredits)
+
+</script>
+</html>
