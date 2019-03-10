@@ -1,4 +1,4 @@
 # momotaro
-University project on fairytales
-Games using Phaser.io
-Characters inspired by Playmobils
+University project on fairytales.
+Games using Phaser. 
+Characters inspired by Playmobils.
