@@ -23,7 +23,7 @@ Videogames are coded with JavaScript/Phaser.io, 3D illustrations are made with 3
 
 --
 
-### Contributors
+### Authors
 Elena Gibelli\
 Federica Laurencio\
 Luca Longa\
